@@ -1,0 +1,20 @@
+<div class="mb-3 align-middle">
+  {{- with .Site.Author -}}
+  <img class="profile-avatar rounded-circle" alt="{{ .name }}" src="{{ absURL (default "/images/fotoku/profilku.webp" .avatar) }}" data-src="{{ absURL (default "/images/fotoku/profilku.webp" .avatar) }}" loading="lazy" width="32" height="32" style="width: 32px;height: 32px">
+    <a class="text-dark" href="/about">{{ .name }}</a>
+    <span class="small text-muted" title="Ditulis pada 22 Nov 2021"></span>
+   {{- end -}}
+   {{- if and (default true (default .Site.Params.postDate .Params.postDate)) -}}
+  <span class="small text-muted" title="Ditulis pada {{ .Date.Format (default "Jan 2, 2006" $.Site.Params.dateFormat) }}">
+    • {{ .Date.Format (default "Jan 2, 2006" $.Site.Params.dateFormat) }}
+    </span>
+  {{- end -}}
+</div>
+<div class="post-meta">
+  {{- range $key, $value := .Site.Taxonomies -}}
+    {{- range ($.GetTerms $key) -}}
+    <a href="{{ .Permalink }}" class="badge rounded-pill post-taxonomy">#{{ .Name }}</a>
+    {{- end -}}
+  {{- end -}}
+  </span>
+</div>

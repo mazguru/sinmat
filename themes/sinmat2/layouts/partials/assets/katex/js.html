@@ -1,0 +1,6 @@
+{{- $mainScript := resources.Get "katex/index.js" }}
+{{- $configScript := resources.Get "js/katex.config.js" | resources.ExecuteAsTemplate "katex.config.js" . -}}
+{{- $script := slice $configScript $mainScript | resources.Concat "js/katex.js" | minify -}}
+{{- $.Scratch.Add "bs-assets" (slice (dict "url" $script.Permalink "revision" ($.Scratch.Get "null"))) -}}
+<script type="text/javascript" src="{{ $script.Permalink }}" data-turbo-track=reload defer></script>
+

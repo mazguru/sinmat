@@ -1,0 +1,90 @@
+{{ if .IsHome -}}
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "{{ .Site.Title }}",
+        "url": "{{ .Site.BaseURL }}",
+        "description": "{{ .Site.Params.description }}",
+        "thumbnailUrl": "{{ .Site.Params.Logo | absURL }}",
+        "license": "{{ .Site.Params.Copyright }}"
+    }
+</script>
+
+{{ else if .IsPage }}
+    {{ $author := or (.Params.author) (.Site.Params.author) }}
+    {{ $favicon := .Site.Params.favicon | absURL }}
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "{{ .Section }}",
+        "name": "{{ .Title | safeJS }}",
+        "headline": "{{ .Title | safeJS }}",
+        "alternativeHeadline": "{{ .Params.lead }}",
+        "description": "{{ if .Description }}{{ .Description | safeJS }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ end }}{{ end }}",
+        "inLanguage": {{ .Site.LanguageCode | default "en-us" }},
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ .Permalink }}"
+        },
+
+        {{- with .Params.author | default .Site.Author.name | default (T "author") -}}
+
+        "author": {
+            "@type": "Person",
+            "name": {{ . | safeHTML }},
+            "url": "https://www.sinmat.my.id/about"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": {{ . | safeHTML }},
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": {{ . | safeHTML }},
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": {{ . | safeHTML }},
+        },
+        {{- end -}}
+        "copyrightYear" : "{{ .Date.Format "2006" }}",
+        "dateCreated": "{{ .Date.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+        "datePublished": "{{ .PublishDate.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+        "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+        "publisher":{
+            "@type":"Organization",
+            "name": {{ .Site.Params.author.name }},
+            "url": {{ .Site.BaseURL }},
+            "logo": {
+            "@type": "ImageObject",
+            "url": "{{ (printf "%s%s" $favicon "favicon-32x32.png") }}",
+            "width":"32",
+            "height":"32"
+            }
+        },
+        "image": {{ if .Params.images }} [{{ range $i, $e := .Params.images }}{{ if $i }},{{ end }}{{ $e | absURL }}{{ end }} ]
+
+        {{ else }}
+        [{{ range $i, $e := .Site.Params.images }}
+        {{ if $i }}
+        ,
+
+        {{ end }}
+        {{ $e | absURL }}
+
+
+        {{ end }}
+        ]
+
+        {{ end }},
+        "url" : "{{ .Permalink }}",
+        "wordCount" : "{{ .WordCount }}",
+        "genre" : [ {{ range $index, $tag := .Params.kategori }}{{ if $index }}, {{ end }}"{{ $tag }}"{{ end }}],
+        "keywords" : [ {{ range $index, $keyword := .Params.keywords }}{{ if $index }},{{ end }}"{{ $keyword }}"{{ end }}]
+    }
+</script>
+
+{{ end }}

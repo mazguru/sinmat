@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}" itemscope itemtype="http://schema.org/WebPage"  class=scroll-smooth x-data="{ darkMode: localStorage.getItem('dark') === 'true'}" x-init="$watch('darkMode', val => localStorage.setItem('dark', val))" :class="{ 'dark': darkMode }">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{- block "title" . -}}{{- partial "head/title" . -}}{{- end -}}</title>
+        {{- partial "head.html" . -}}
+      </head>
+    <body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
+        
+        {{- partial "header.html" . -}}
+        {{- block "header" . -}}{{- end -}}
+        {{- block "index1" . -}}{{- end -}}
+        
+        {{- block "main" . -}}{{- end -}}
+       
+            {{- block "content" . -}}{{- end -}}
+        
+        {{- block "konten2" . -}}{{- end -}}
+        {{- block "konten3" . -}}{{- end -}}
+        {{- partial "scroll-top.html" . -}}
+        {{- partial "footer.html" . -}}
+        {{- partial "body-end" . -}}
+    </body>
+</html>

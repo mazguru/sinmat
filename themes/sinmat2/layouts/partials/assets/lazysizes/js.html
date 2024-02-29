@@ -1,0 +1,5 @@
+{{- $mainScript := resources.Get "lazysizes/index.js" }}
+{{- $configScript := resources.Get "js/lazysizesconfig.js" | resources.ExecuteAsTemplate "lazysizesconfig.js" . -}}
+{{- $script := slice $configScript $mainScript | resources.Concat "js/lazysizes.js" | minify | fingerprint -}}
+{{- $.Scratch.Add "bs-assets" (slice (dict "url" $script.Permalink "revision" ($.Scratch.Get "null"))) -}}
+<script defer src="{{ $script.Permalink }}" integrity="{{ $script.Data.Integrity }}" crossorigin="anonymous"></script>

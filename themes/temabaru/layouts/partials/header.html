@@ -1,0 +1,160 @@
+{{- $baseURL := $.Site.BaseURL -}}
+<div class="container max-w-7xl mx-auto px-0">
+  <div x-data="{ open: false }"
+    class="flex flex-col max-w-screen-xl mx-auto md:items-center md:justify-between md:flex-row">
+    <div class="p-4 flex flex-row items-center justify-between">
+      <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open" type="button"
+        aria-label="mobile-menu" aria-expanded="false">
+        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+          <path x-show="!open" fill-rule="evenodd"
+            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+            clip-rule="evenodd"></path>
+          <path x-show="open" fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd" style="display: none;"></path>
+        </svg>
+      </button>
+      <a href="{{ "" | absLangURL }}" alt="homepage"
+        class="flex text-lg font-semibold tracking-widest uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
+        <svg fill="currentColor" class="inline w-6 h-6" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+          width="6.7732mm" height="6.7732mm" version="1.1" viewBox="0 0 677 677"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g>
+            <path
+              d="M5 326c239,-99 294,-221 432,-189 16,4 9,41 -6,56 -93,93 -279,218 -259,271 21,20 251,-14 367,12 31,7 2,133 16,204 34,-116 174,-310 100,-358 -28,-8 -135,62 -226,38 -31,-8 -24,-67 -4,-93 39,-50 48,-63 101,-104 59,-37 101,-126 83,-151 -163,-64 -541,144 -604,314z" />
+          </g>
+        </svg>
+        <span class="hidden md:block mx-2">{{ .Site.Title}}</span>
+      </a>
+      <div class="md:hidden flex">
+        <a href="/search/?q=#gsc.tab=0"
+          class="md:hidden rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-gray-800">
+          <span class="sr-only">View notifications</span>
+          <!-- Heroicon name: search -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+            class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+        </a>
+        <button aria-label="toggle dark mode" type="button" @click="darkMode = !darkMode;"
+          class="mx-2 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-gray-800">
+          <svg viewBox="0 0 24 24" fill="current" class="h-6 w-6" :class="{'hidden': darkMode }">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M17.715 15.15A6.5 6.5.0 019 6.035c-2.894.887-5 3.61-5 6.832.0 3.94 3.153 7.136 7.042 7.136 3.101.0 5.734-2.032 6.673-4.853z">
+            </path>
+            <path
+              d="m17.715 15.15.95.316a1 1 0 00-1.445-1.185l.495.869zM9 6.035l.846.534a1 1 0 00-1.14-1.49L9 6.035zm8.221 8.246a5.47 5.47.0 01-2.72.718v2a7.47 7.47.0 003.71-.98l-.99-1.738zm-2.72.718A5.5 5.5.0 019 9.5H7a7.5 7.5.0 007.5 7.5v-2zM9 9.5c0-1.079.31-2.082.845-2.93L8.153 5.5A7.47 7.47.0 007 9.5h2zm-4 3.368C5 10.089 6.815 7.75 9.292 6.99L8.706 5.08C5.397 6.094 3 9.201 3 12.867h2zm6.042 6.136C7.718 19.003 5 16.268 5 12.867H3c0 4.48 3.588 8.136 8.042 8.136v-2zm5.725-4.17c-.81 2.433-3.074 4.17-5.725 4.17v2c3.552.0 6.553-2.327 7.622-5.537l-1.897-.632z">
+            </path>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M17 3a1 1 0 011 1 2 2 0 002 2 1 1 0 110 2 2 2 0 00-2 2 1 1 0 11-2 0 2 2 0 00-2-2 1 1 0 110-2 2 2 0 002-2 1 1 0 011-1z">
+            </path>
+          </svg>
+          <svg class="h-6 w-6 hidden" :class="{'hidden': !darkMode }" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24" stroke="currentcolor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364-.707-.707M6.343 6.343l-.707-.707m12.728.0-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+            </path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row"
+      :class="{'flex': open, 'hidden': !open}">
+      <a href="{{ "" | absLangURL }}"
+        class="hover:border-b-2 mx-2 md:inline-flex items-center gap-1 px-1 py-2 font-medium hover:border-sky-900 dark:border-sky-900/90">🏠Home
+      </a>
+      {{- $currentPage := . -}}
+      {{- range .Site.Menus.main -}}
+      {{- if .HasChildren -}}
+      <div x-data="{
+          open: false,
+          toggle() {
+              if (this.open) {
+                  return this.close()
+              }
+
+              this.$refs.button.focus()
+
+              this.open = true
+          },
+          close(focusAfter) {
+              if (! this.open) return
+
+              this.open = false
+
+              focusAfter && focusAfter.focus()
+          }
+      }" x-on:keydown.escape.prevent.stop="close($refs.button)"
+        x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+        x-id="['navbarDropdown{{ title .Identifier }}']"
+        class='relative hover:border-b-2 mx-2 md:inline-flex items-center gap-1 px-1 py-2 font-medium dark:hover:border-sky-100 hover:border-sky-900  dark:border-sky-900/90 {{ if $currentPage.HasMenuCurrent "main" . }} border-sky-50 dark:border-sky-50{{ else }} border-blue-500 {{ end }}' x-data="{ open: false }">
+
+        <button x-ref="button" x-on:click="toggle()" :aria-expanded="open" :aria-controls="$id('dropdown-button')"
+          type="button" class="md:inline">
+          {{ .Pre }}<span>{{- .Name -}} {{ .Post }}</span>
+          <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+            class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
+            <path fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+
+        <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+          :id="$id('dropdown-button')" style="display: none;"
+          class="origin-top-right absolute top-8 md:top-12 right-0 z-40 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-slate-800">
+          {{- range .Children -}}
+          {{- $childURL := .URL | absURL -}}
+          <a class='flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-1 text-left text-md hover:text-slate-50 hover:bg-sky-700 disabled:text-gray-500 {{ if or (eq $currentPage.Permalink (absURL .URL)) ($currentPage.IsMenuCurrent "main" .) }} bg-sky-200 text-slate-800{{ end }}' href="{{ $childURL }}" {{ if not (hasPrefix $childURL
+            $baseURL) }} target="_blank" rel="noopener noreferrer" {{ end }}>
+            {{ .Pre }} {{- .Name -}} {{ .Post }}
+          </a>
+          {{- end -}}
+
+        </div>
+      </div>
+      {{- else -}}
+      <a class="border-b-2 md:inline-flex items-center gap-1 px-1 py-2 font-medium hover:border-sky-900 dark:border-sky-900/90"
+        href="#">{{ .Pre }} {{- .Name -}} {{ .Post }} </a>
+      {{- end -}}
+      {{- end -}}
+
+      <a href="/search/?q=#gsc.tab=0"
+        class="hidden md:block p-2 m-2 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-gray-800">
+        <span class="sr-only">View notifications</span>
+        <!-- Heroicon name: search -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+          class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+
+        </svg>
+      </a>
+      <button aria-label="toggle dark mode" type="button" @click="darkMode = !darkMode;"
+        class="hidden md:block p-2 m-2 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-gray-800">
+        <svg viewBox="0 0 24 24" fill="current" class="h-8 w-8 md:h-6 md:w-6" :class="{'hidden': darkMode }">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M17.715 15.15A6.5 6.5.0 019 6.035c-2.894.887-5 3.61-5 6.832.0 3.94 3.153 7.136 7.042 7.136 3.101.0 5.734-2.032 6.673-4.853z">
+          </path>
+          <path
+            d="m17.715 15.15.95.316a1 1 0 00-1.445-1.185l.495.869zM9 6.035l.846.534a1 1 0 00-1.14-1.49L9 6.035zm8.221 8.246a5.47 5.47.0 01-2.72.718v2a7.47 7.47.0 003.71-.98l-.99-1.738zm-2.72.718A5.5 5.5.0 019 9.5H7a7.5 7.5.0 007.5 7.5v-2zM9 9.5c0-1.079.31-2.082.845-2.93L8.153 5.5A7.47 7.47.0 007 9.5h2zm-4 3.368C5 10.089 6.815 7.75 9.292 6.99L8.706 5.08C5.397 6.094 3 9.201 3 12.867h2zm6.042 6.136C7.718 19.003 5 16.268 5 12.867H3c0 4.48 3.588 8.136 8.042 8.136v-2zm5.725-4.17c-.81 2.433-3.074 4.17-5.725 4.17v2c3.552.0 6.553-2.327 7.622-5.537l-1.897-.632z">
+          </path>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M17 3a1 1 0 011 1 2 2 0 002 2 1 1 0 110 2 2 2 0 00-2 2 1 1 0 11-2 0 2 2 0 00-2-2 1 1 0 110-2 2 2 0 002-2 1 1 0 011-1z">
+          </path>
+        </svg>
+        <svg class="h-8 w-8 md:h-6 md:w-6 hidden" :class="{'hidden': !darkMode }" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 24 24" stroke="currentcolor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364-.707-.707M6.343 6.343l-.707-.707m12.728.0-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+          </path>
+        </svg>
+      </button>
+
+
+    </div>
+  </div>
+
+</div>

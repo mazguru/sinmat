@@ -1,0 +1,78 @@
+p.mx-auto {
+  margin-right: auto!important;
+  margin-left: auto!important;
+}
+
+.post-content img{
+  display: block;
+  vertical-align: middle;
+  margin-right: auto!important;
+  margin-left: auto!important;
+}
+
+.post-content table{
+  max-width: 100%;
+  border-collapse: collapse;
+}
+.post-content table, .post-content th, .post-content td{
+  border: 1px solid;
+}
+.post-content th{
+  text-align: center;
+}
+
+@media only screen and (max-width: 767px){
+.katex-display>.katex>.katex-html {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+}
+
+
+#disqus_thread>iframe[src*="ads-iframe"] {
+    display:none!important
+  }
+
+#disqus_thread>iframe[sandbox]{display:none!important}
+
+.responsive-iframe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%
+}
+
+.post-content ol ol {
+    list-style: lower-alpha;
+}
+
+.aspect-video	{
+  aspect-ratio: 16 / 9;
+}
+
+.empty-ads {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background-color: rgb(51 65 85/.75);
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85/var(--tw-text-opacity));
+  --tw-backdrop-blur: blur(8px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur)var(--tw-backdrop-brightness)var(--tw-backdrop-contrast)var(--tw-backdrop-grayscale)var(--tw-backdrop-hue-rotate)var(--tw-backdrop-invert)var(--tw-backdrop-opacity)var(--tw-backdrop-saturate)var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur)var(--tw-backdrop-brightness)var(--tw-backdrop-contrast)var(--tw-backdrop-grayscale)var(--tw-backdrop-hue-rotate)var(--tw-backdrop-invert)var(--tw-backdrop-opacity)var(--tw-backdrop-saturate)var(--tw-backdrop-sepia);
+}
+
+.transform-gpu {
+  transform: translate3d(var(--tw-translate-x),var(--tw-translate-y),0)rotate(var(--tw-rotate))skewX(var(--tw-skew-x))skewY(var(--tw-skew-y))scaleX(var(--tw-scale-x))scaleY(var(--tw-scale-y));
+}

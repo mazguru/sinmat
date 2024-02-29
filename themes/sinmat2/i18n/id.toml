@@ -1,0 +1,168 @@
+[about_me]
+other = "About Me"
+
+[alipay]
+other = "Alipay"
+
+[archives]
+other = "Arsip"
+
+[categories]
+other = "Kategori"
+
+[color_blue]
+other = "Blue"
+
+[color_blue_gray]
+other = "Blue Gray"
+
+[color_brown]
+other = "Brown"
+
+[color_cyan]
+other = "Cyan"
+
+[color_green]
+other = "Green"
+
+[color_indigo]
+other = "Indigo"
+
+[color_orange]
+other = "Orange"
+
+[color_pink]
+other = "Pink"
+
+[color_purple]
+other = "Purple"
+
+[color_red]
+other = "Red"
+
+[color_teal]
+other = "Teal"
+
+[color_yellow]
+other = "Yellow"
+
+[copyright]
+other = "Copyright"
+
+[featured_posts]
+other = "Post Unggulan"
+
+[font_size]
+other = "Font Size"
+
+[home]
+other = "Home"
+
+[go_back]
+other = "Kembali"
+
+[language]
+other = "Bahasa"
+
+[load_more]
+other = "Lebih banyak"
+
+[mode]
+other = "Mode"
+
+[pagination_title]
+other = "Halaman {{ .PageNumber }}"
+
+[palette]
+other = "Palette"
+
+[post_count]
+one = "{{ .Count }}  total"
+other = "{{ .Count }}  total"
+
+[reading_time]
+other = "Baca {{ .ReadingTime }} menit"
+
+[recent_posts]
+other = "Atrikel Terbaru"
+
+[related_posts]
+other = "Artikel Terkait"
+
+[reward]
+other = "Reward"
+
+[search]
+other = "Cari"
+
+[search_missing_keywords]
+other = "Masukkan kata kunci"
+
+[search_no_results]
+other = "Tidak ditemukan"
+
+[search_stat]
+other = "ditemukan {{ .Total }} konten"
+
+[series]
+other = "Series"
+
+[settings]
+other = "Pengaturan"
+
+[table_of_contents]
+other = "Daftar Isi"
+
+[tags]
+other = "Topik"
+
+[topik]
+other = "Topik"
+
+[seri]
+other = "Seri"
+
+[kategori]
+other = "Kategori"
+
+[wechat]
+other = "WeChat"
+
+[button_submit]
+other = "kirim"
+
+[contact_name]
+other = "Namamu"
+
+[contact_email_help]
+other = "We'll never share your email with anyone else."
+
+[contact_subject]
+other = "Subjek"
+
+[contact_message]
+other = "Pesan"
+
+[contact_email]
+other = "Email"
+
+[contact_file]
+other = "File"
+
+[comments]
+other = "Komentar"
+
+[404_title]
+other = "Oops! Page not found."
+
+[404_info]
+other = "We can't seems to find the page you're looking for."
+
+[offline_title]
+other = "Oops! You're offline."
+
+[offline_info]
+other = "It seems there is a problem of your connection. Please check your network status."
+
+[try_again]
+other = "Coba Lagi"

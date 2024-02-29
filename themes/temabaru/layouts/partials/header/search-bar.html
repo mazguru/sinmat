@@ -1,0 +1,12 @@
+
+{{- if (default true .Site.Params.searchBar) -}}
+<form id='search' class="collapse search-bar" action="{{ absLangURL "search" }}">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute right-0">🔍</span>
+    <input class="form-control rounded-pill" name="q" type="search" placeholder='kata kunci' aria-label="Search">
+  </div>
+</form>
+{{- end -}}
+<a class="navbar-setting" data-bs-toggle="collapse" href="#search" role="button" aria-expanded="false" aria-controls="search">
+  <i class="bi fa-fw bi-search"></i>
+</a>

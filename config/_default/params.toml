@@ -1,0 +1,67 @@
+# mainSections = ["post", "posts"] # Default to ["posts"].
+
+# titleSeparator = "|" # Title separator. Default to "-".
+
+description = "Mari belajar bersama agar kebahagiaan selalu dalam diri kita. Dengan belajar, seseorang akan menjadi pintar, dengan kepintaran seseorang akan merasa bahagia."
+deskripsisite = "Mari belajar bersama agar kebahagiaan selalu dalam diri kita. Dengan belajar, seseorang akan menjadi pintar, dengan kepintaran seseorang akan merasa bahagia."
+keywords = "sinau, matematika, belajar, blog"
+# images = ["site-feature-image.jpg"]
+
+# pavicon ="images/pavicon.png"
+# logo = "images/logo.png" # Logo image. Default to "images/logo.webp".
+logo = "/images/logo/logo-white.webp" # Logo image. Default to "images/logo.webp".
+logo2 = "/images/logo/logo.png"
+logonavbar = "images/logo/iconfull-white.png"
+logoern = "images/404.png" # Logo image. Default to "images/logo.webp".
+# homepage="images/homepage.svg".
+brand = "SINAUMATEMATIKA"
+brand2 = "Sinau Matematika"
+
+color = "light" # light, dark or dynamic. Default to dynamic.
+
+dateFormat = "2 Jan 2006"
+
+
+googleAdsense = "ca-pub-8506473245826654"
+
+googleAnalyticsUniversal = "G-CXP550L7VB"
+
+recentPostCount = 6 # The number of recent posts shown in sidebar. Turn off by setting it to false.
+relatedPostCount = 5 # The number of related posts. Turn off by setting it to false.
+
+titleCase = true # Capitalized title.
+
+
+
+[codeBlock]
+  # maxLines = 8
+  lineNos = false # true/false represents that show/hide the line numbers by default.
+
+[post]
+  # excerpt = "description"
+  excerptMaxLength = 150
+
+[archive]
+  paginate = 10 # Archive pagination. Default to 100.
+  dateFormat = "2 Jan" # Archive date format. Default to "Jan 2".
+
+[belajar]
+  paginate = 8 # Archive pagination. Default to 100.
+  dateFormat = "2 Jan" # Archive date format. Default to "Jan 2".
+
+
+[siteVerification]
+  google = "yvaDhySejX5eLuyMH0j8EF9bm2muPjFKBTO4a2_yhY0"
+  yandex = "09741fe10f3825b4"
+
+
+#[utterances]
+  repo = "mazguru/mazguru.github.io" # Replace with your repository.
+  # issueTerm = "pathname" # pathname, url, title, og:title
+  label = "comment"
+  # By default, light and dark mode correspond to github-light and github-dark, respectively.
+  # Optional values: github-light, github-dark, preferred-color-scheme, github-dark-orange, icy-dark, dark-blue, photon-dark.
+  theme = "github-light" 
+
+[search]
+  paginate = 5

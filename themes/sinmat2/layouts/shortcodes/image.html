@@ -1,0 +1,5 @@
+{{- $id := .Get 0 -}}
+{{- $class := .Get 1 -}}
+{{- $style := .Get 2 -}}
+
+  <img class="{{ $class }} lazyload" src="/img/placeholder.svg" data-src="{{ $id }}" {{ $style }} loading="lazy" />

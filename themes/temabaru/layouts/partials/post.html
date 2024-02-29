@@ -1,0 +1,63 @@
+{{- $enabletoc := and (default true .Params.toc) (default true .Site.Params.toc) -}}
+<article
+  class="shadow-md p-4 md:p-6 lg:p-8 xl:p-16 relative bg-white dark:bg-slate-800 rounded-xl prose max-w-none lg:prose-xl prose-p:text-justify prose-p: text-black dark:prose-invert prose-headings:font-sans prose-headings:tracking-tight prose-ul:text-justify prose-ol:text-justify prose-pre:dark:border prose-pre:dark:border-slate-700 prose-table:w-max prose-table:mx-auto prose-td:py-0 prose-td:px-2 prose-th:px-2"
+  {{ if $enabletoc }} x-data="{tableOfContents: false }" {{ end }}>
+  {{- partial "post/panel" . -}}
+  <header class="not-prose">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-tight tracking-tight">{{ partial "helpers/title"
+      . }}</h1>
+    <div class="mb-4 flex items-center justify-start gap-2 text-base">
+      {{- with .Site.Author -}}
+      <img class="rounded-full inline lazyload h-6 w-6 lazyloaded" alt="{{ .name }}" src="{{ absURL (default "/images/fotoku/profilku.webp" .avatar) }}" data-src="{{ absURL (default " /images/fotoku/profilku.webp" .avatar)}}" loading="lazy" width="32" height="32" style="width: 32px;height: 32px">
+      <a class="text-dark" href="/about">{{ .name }}</a>
+      {{- end -}}
+      {{- if and (default true (default .Site.Params.postDate .Params.postDate)) -}}
+      <time datetime="{{ $.Site.Params.dateFormat }}" title="Ditulis pada {{ .Date.Format (default " Jan 2, 2006"
+        $.Site.Params.dateFormat) }} dan di-update pada {{ .Date.Format (default "Jan 2, 2006" $.Site.Params.dateFormat)
+        }}">• {{ .Date.Format (default "Jan 2, 2006" $.Site.Params.dateFormat) }}</time>
+      {{- end -}}
+    </div>
+    <section class="flex pb-2 gap-1 flex-wrap">
+      {{- range $key, $value := .Site.Taxonomies -}}
+      {{- range ($.GetTerms $key) -}}
+      <a rel="tag"
+        class="p-1 px-1 rounded-md text-xs font-medium bg-sky-100 dark:bg-sky-700 dark:hover:bg-sky-600/25 hover:bg-sky-600/25"
+        href="{{ .Permalink }}">#{{ .Name }}</a>
+      {{- end -}}
+      {{- end -}}
+    </section>
+    <hr class="border-sky-300 dark:border-sky-700">
+
+  </header>
+  {{- if .Params.Images -}}
+  <div class="text-center mb-3">
+    <img aria-hidden='true' fetch-priority="high" class="w-100" alt="{{ .Title }}" src="{{ index .Params.Images 0 | absURL }}" width="800" height="450">
+  </div>
+  {{- end -}}
+
+  <div class="post-content mb-2">
+    <p class="not-prose p-2 text-xs font-sans bg-blue-200"> {{ .Params.description }} </p>
+    {{- partial "post/toc" . -}}
+    <ins class="adsbygoogle empty:h-96 text-center items-center lazyload rounded-lg empty-ads"
+      data-ad-layout="in-article" data-ad-format="auto" data-full-width-responsive="true"
+      data-ad-client="ca-pub-4490009413779724" data-ad-slot="6367538238">
+
+    </ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    {{- .Content -}}
+    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
+      data-ad-format="fluid" data-ad-client="ca-pub-4490009413779724" data-ad-slot="8612080661"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <div class="not-prose">
+    <hr>
+  </div>
+  {{- partial "post/nav" . -}}
+</article>
+{{- partial "post/related-posts" . -}}
+{{- partial "post/comments" . -}}

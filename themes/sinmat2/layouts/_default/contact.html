@@ -1,0 +1,13 @@
+{{ define "main" }}
+<main class="container px-0 lg:px-6 lg:max-w-4xl mx-auto my-4 mb:my-8 lg:my-16">
+  <div class="bg-white p-8 rounded-xl shadow-md dark:bg-slate-800">
+    <h1 class="text-xl md:text-2xl lg:text-3xl font-black mb-4 leading-tight tracking-tight">{{ .Title }}</h1>
+    <img class="mx-auto" src="/img/contact.svg" alt="Kontak" width="300">
+    <div class="prose-ul:list-disc prose-p:text-justify prose-ul:font-bold prose-ul:ml-6 justify-center">
+      {{- .Content -}}
+      <div class="mt-5"><h2 class="text-xl font-bold mb-2">Send Email</h2><a href="mailto:bakhtiarsma@gmail.com" class="font-medium text-white px-3 py-2 bg-bluem-500 hover:bg-bluem-700 rounded-lg active:bg-bluem-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentcolor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22.0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5A2 2 0 003 7v10a2 2 0 002 2z"></path></svg>bakhtiarsma@gmail.com</a></div>
+      </div>
+  </div>
+</main>
+{{ end }}
+  

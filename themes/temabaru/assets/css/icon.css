@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('/fonts/icomoon.eot?zcolnt');
+  src:  url('/fonts/icomoon.eot?zcolnt#iefix') format('embedded-opentype'),
+    url('/fonts/icomoon.ttf?zcolnt') format('truetype'),
+    url('/fonts/icomoon.woff?zcolnt') format('woff'),
+    url('/fonts/icomoon.svg?zcolnt#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-facebook:before {
+  content: "\e900";
+  color: #1877f2;
+}
+.icon-github:before {
+  content: "\e901";
+}
+.icon-gitlab:before {
+  content: "\e902";
+  color: #fca121;
+}
+.icon-gmail:before {
+  content: "\e903";
+  color: #d14836;
+}
+.icon-instagram:before {
+  content: "\e904";
+  color: #e4405f;
+}
+.icon-rss:before {
+  content: "\e905";
+  color: #ffa500;
+}
+.icon-telegram:before {
+  content: "\e906";
+  color: #2ca5e0;
+}
+.icon-twitter:before {
+  content: "\e907";
+  color: #1da1f2;
+}
+.icon-youtube:before {
+  content: "\e908";
+  color: #f00;
+}
+
+#disqus_thread>iframe[src*="ads-iframe"] {
+  display:none!important
+}
+
+#disqus_thread>iframe[sandbox]{display:none!important}

@@ -1,0 +1,140 @@
+{{ define "head-end" }}
+{{- $titleKey := dict "name" "title" "weight" 0.8 -}}
+{{- $contentKey := dict "name" "content" "weight" 0.5 -}}
+{{- $tagsKey := dict "name" "tags" "weight" 0.3 -}}
+{{- $categoriesKey := dict "name" "categories" "weight" 0.3 -}}
+{{- $seriesKey := dict "name" "series" "weight" 0.3 -}}
+{{- $keys := slice $titleKey $contentKey $tagsKey $categoriesKey $seriesKey -}}
+{{- $options := dict "ignoreLocation" true "includeMatches" true "includeScore" true "keys" $keys -}}
+{{- $optionWhitelist := slice "ignoreLocation" "isCaseSensitive" "minMatchCharLength" "threshold" "distance" "useExtendedSearch" -}}
+{{- with .Site.Params.search.fuse -}}
+  {{- range $key, $value := . -}}
+    {{- range $optionWhitelist -}}
+      {{- if eq $key (lower .) -}}
+        {{- $options = merge $options (dict . $value) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{ end }}
+
+{{ define "main" }}
+<style>
+  .gcse-searchbox:empty {
+      height: 40px;
+      background-color: #708090;
+      border-radius: 8px;
+  }
+  .gcse-searchresults:empty {
+      height: 100px;
+      background-color: #708090;
+      border-radius: 8px;
+  }
+  .gsc-above-wrapper-area {
+      border: none;
+  }
+  .gsc-control-cse {
+      border: none;
+      background-color: transparent;
+      font-size: 1rem;
+      padding: 0;
+  }
+  .gsc-cursor {
+      margin: 1em 0;
+      display: flex !important;
+      justify-content: start;
+      align-items: center;
+  }
+  .gsc-cursor-page {
+      padding: 1rem;
+      margin: 0 !important;
+      background-color: transparent !important;
+  }
+  .gsc-cursor-box,
+  .gsc-webResult.gsc-result,
+  .gsc-results .gsc-imageResult {
+      border: none;
+      background-color: transparent !important;
+  }
+  .dark .gsc-input {
+      color: #708090;
+  }
+  .gsc-cursor {
+      gap: 1rem;
+  }
+  .gsc-cursor-page {
+      text-decoration: none !important;
+      display: inline-flex !important;
+      justify-content: center;
+      align-items: center;
+      border-radius: 9999px;
+  }
+  .gsc-cursor-page:hover {
+      background-color: #1484b8 !important;
+      color: #fff !important;
+  }
+  .gsc-cursor-current-page {
+      color: #fff !important;
+      background-color: #0d6294 !important;
+  }
+  .gcsc-find-more-on-google svg {
+      display: inline;
+  }
+  .gsc-cursor-page {
+    display: inline-flex;
+    height: 2rem;
+    width: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(226 232 240/var(--tw-bg-opacity));
+    padding: 0.25rem;
+  }
+</style>
+
+
+<div class="container lg:max-w-3xl my-16 mx-auto p-8 bg-white dark:bg-slate-800 dark:text-white shadow-lg rounded-lg">
+  <div class=gcse-searchbox data-enablehistory=true data-enableautocomplete=true data-autocompletemaxcompletions=5 data-autocompletematchtype=any>
+
+  </div>
+  <div class=gcse-searchresults data-refinementstyle=link>
+
+  </div>
+  <div id=search-placeholder class="py-8 my-8">
+
+  </div>
+</div>
+  <script>
+  const resultsReadyCallback=function(r,c,t,n,e){
+    const a=t=>{
+      console.dir(t);
+      const e=document.createElement("a");
+      e.href=t.url,e.target="_blank",e.classList.add("gs-title");
+      const n=document.createElement("span");
+      return n.innerHTML="Promo: "+t.title,e.appendChild(n),e},o=e=>`
+      <div class="mb-8">
+        <h2 class="text-xl font-bold mb-2">
+          <a class="restul-highlight hover:underline" href="${e.url}">${e.title}</a>
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300 text-sm">${e.content}</p>
+      </div>
+      `,i=()=>`
+      <div class="text-center py-8">
+        <img class="mx-auto" src="/img/search-image.svg" alt="Searching..." width="200">
+        <p class="my-4">Tidak ditemukan, coba dengan kata kunci lain!</p>
+      </div>
+      `,s=document.createElement("table");
+      if(t){
+        console.dir(t);
+        for(const e of t){
+          const n=s.insertRow(-1),o=n.insertCell(-1);o.appendChild(a(e))}e.appendChild(s),e.appendChild(document.createElement("br"))}if(n.length>1){const t=n.map(e=>o(e));e.innerHTML=t.join(''),e.classList.remove("gsc-webResult")}else e.innerHTML=i();return!0};function renderedCallback(t,n,s,e){
+            e?document.querySelector("#search-placeholder").classList.add("hidden"):document.querySelector("#search-placeholder").classList.remove("hidden")}function initCallback(){const e=()=>`
+  <div class="text-center">
+  <img class="mx-auto" src="/img/search-image.svg" alt="Searching..." width="200">
+  <p class="my-4">Apa yang ingin kamu cari?</p>
+  </div>
+`;return document.querySelector("#search-placeholder").innerHTML=e(),!0}window.__gcse||(window.__gcse={}),window.__gcse.initializationCallback=initCallback,window.__gcse.searchCallbacks={web:{ready:resultsReadyCallback,rendered:renderedCallback}}</script>  
+
+<script async src="https://cse.google.com/cse.js?cx=e515a7ef5321f717d"></script>
+{{ end }}

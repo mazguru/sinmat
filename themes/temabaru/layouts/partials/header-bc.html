@@ -1,0 +1,254 @@
+{{- $baseURL := $.Site.BaseURL -}}
+  <nav class="backdrop-blur transition-colors duration-500 supports-backdrop-blur:bg-white/95 sticky top-0 z-40 shadow-md">
+    <div class="container max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between  py-3 md:py-2">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button type="button" @click="$dispatch('sidemenu')" class="inline-flex items-center justify-center p-2 rounded-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+            </svg>
+            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+          <a href="{{ "" | absLangURL }}" class="flex-shrink-0 px-1 flex rounded-full items-center  hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-gray-800">
+            <svg class="block  text-slate-800  dark:text-slate-100 lg:hidden w-8 h-8 active:scale-95" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 64 64" > <g id="Layer_x0020_1">  <path fill="#64B5F6" d="M2 31c5,-14 23,-28 54,-29 0,9 -20,21 -16,32 7,3 13,2 20,-3 4,15 2,23 -4,31 -3,1 -1,-13 -2,-19 -11,0 -24,0 -35,0 -4,-11 22,-16 24,-29 -10,-9 -28,13 -41,17z"/> </g> </svg>
+            <svg class="hidden  text-slate-800  dark:text-slate-100 lg:block w-8 h-8 active:scale-95" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 64 64" > <g id="Layer_x0020_1">  <path fill="#64B5F6" d="M2 31c5,-14 23,-28 54,-29 0,9 -20,21 -16,32 7,3 13,2 20,-3 4,15 2,23 -4,31 -3,1 -1,-13 -2,-19 -11,0 -24,0 -35,0 -4,-11 22,-16 24,-29 -10,-9 -28,13 -41,17z"/> </g> </svg>
+          </a>
+          <div class="hidden sm:block sm:ml-6">
+            <div class="flex space-x-4">
+              <a href="{{ "" | absLangURL }}" class="hidden border-b-2 md:inline-flex items-center gap-1 px-1 py-2 font-medium hover:border-sky-900 dark:border-sky-900/90">
+              🏠Home </a>
+              {{- $currentPage := . -}}
+              {{- range .Site.Menus.main -}}
+              {{- $url := .URL | absURL -}}
+              {{- $active := or (eq $currentPage.Permalink (absURL .URL)) ($currentPage.IsMenuCurrent "main" .) -}}
+              {{- if .HasChildren -}}
+                
+                <div class="relative"
+                  x-data="{
+                    open: false,
+                    toggle() {
+                        if (this.open) {
+                            return this.close()
+                        }
+        
+                        this.$refs.button.focus()
+        
+                        this.open = true
+                    },
+                    close(focusAfter) {
+                        if (! this.open) return
+        
+                        this.open = false
+        
+                        focusAfter && focusAfter.focus()
+                    }
+                }"
+                x-on:keydown.escape.prevent.stop="close($refs.button)"
+                x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                x-id="['navbarDropdown{{ title .Identifier }}']"
+                class="relative"
+                >
+                  <div>
+                    <button 
+                    x-ref="button"
+                    x-on:click="toggle()"
+                    :aria-expanded="open"
+                    :aria-controls="$id('dropdown-button')"
+                    type="button" class="hidden hover:border-b-2 md:inline-flex hover:rounded-t-lg items-center gap-1 px-1 py-2 font-medium hover:border-sky-900 dark:border-sky-900/90 {{ if $currentPage.HasMenuCurrent "main" . }} border-sky-50 dark:border-sky-50{{ else }} border-bluem-500 {{ end }} " id="navbarDropdown{{ title .Identifier }}">
+                    {{ .Pre }} {{- .Name -}} {{ .Post }} 
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                    
+                    
+                    </button>
+                   
+                  </div>
+        
+                  <!--
+                    Dropdown menu, show/hide based on menu state.
+        
+                    Entering: "transition ease-out duration-100"
+                      From: "transform opacity-0 scale-95"
+                      To: "transform opacity-100 scale-100"
+                    Leaving: "transition ease-in duration-75"
+                      From: "transform opacity-100 scale-100"
+                      To: "transform opacity-0 scale-95"
+                  -->
+                  <div 
+                  x-ref="panel"
+                  x-show="open"
+                  x-transition.origin.top.left
+                  x-on:click.outside="close($refs.button)"
+                  :id="$id('dropdown-button')"
+                  style="display: none;"
+                  class="origin-top-right absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-slate-800" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <!-- Active: "bg-sky-100", Not Active: "" -->
+                    {{- range .Children -}}
+                    {{- $childURL := .URL | absURL -}}
+                    {{- if .Params.divider -}}
+                    <hr class="dropdown-divider">
+                    {{- else -}}
+                    <a class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-1 text-left text-md hover:text-slate-50 hover:bg-sky-700 disabled:text-gray-500 {{ if or (eq $currentPage.Permalink (absURL .URL)) ($currentPage.IsMenuCurrent "main" .) }} bg-sky-200 text-slate-800{{ end }}" role="menuitem" tabindex="-1" id="user-menu-item-1" href="{{ $childURL }}"{{ if not (hasPrefix $childURL $baseURL) }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Pre }} {{- .Name -}} {{ .Post }}</a>
+                    {{- end -}}
+                    {{- end -}}
+                  </div>
+                </div>
+              {{- else -}}
+              <a class="nav-link{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if not (hasPrefix $url $baseURL) }} target="_blank" rel="noopener noreferrer"{{ end }}>
+                {{ .Pre }} {{- .Name -}} {{ .Post }}
+              </a>
+              {{- end -}}
+              {{- end -}}
+            </div>
+          </div>
+        </div>
+        
+        <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <a href="/search/?q=#gsc.tab=0" class="p-1 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-gray-800">
+            <span class="sr-only">View notifications</span>
+            <!-- Heroicon name: search -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            
+            </svg>
+          </a>
+          <button
+              aria-label="toggle dark mode"
+              type="button"
+              @click="darkMode = !darkMode;"
+              class="p-1 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-gray-800"
+          >
+              <svg viewBox="0 0 24 24" fill="current" class="h-8 w-8 md:h-6 md:w-6 active:scale-95" :class="{'hidden': darkMode }">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.715 15.15A6.5 6.5.0 019 6.035c-2.894.887-5 3.61-5 6.832.0 3.94 3.153 7.136 7.042 7.136 3.101.0 5.734-2.032 6.673-4.853z"></path>
+                  <path
+                      d="m17.715 15.15.95.316a1 1 0 00-1.445-1.185l.495.869zM9 6.035l.846.534a1 1 0 00-1.14-1.49L9 6.035zm8.221 8.246a5.47 5.47.0 01-2.72.718v2a7.47 7.47.0 003.71-.98l-.99-1.738zm-2.72.718A5.5 5.5.0 019 9.5H7a7.5 7.5.0 007.5 7.5v-2zM9 9.5c0-1.079.31-2.082.845-2.93L8.153 5.5A7.47 7.47.0 007 9.5h2zm-4 3.368C5 10.089 6.815 7.75 9.292 6.99L8.706 5.08C5.397 6.094 3 9.201 3 12.867h2zm6.042 6.136C7.718 19.003 5 16.268 5 12.867H3c0 4.48 3.588 8.136 8.042 8.136v-2zm5.725-4.17c-.81 2.433-3.074 4.17-5.725 4.17v2c3.552.0 6.553-2.327 7.622-5.537l-1.897-.632z"
+                      
+                  ></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17 3a1 1 0 011 1 2 2 0 002 2 1 1 0 110 2 2 2 0 00-2 2 1 1 0 11-2 0 2 2 0 00-2-2 1 1 0 110-2 2 2 0 002-2 1 1 0 011-1z" ></path>
+              </svg>
+              <svg class="h-8 w-8 md:h-6 md:w-6 hidden active:scale-95" :class="{'hidden': !darkMode }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentcolor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364-.707-.707M6.343 6.343l-.707-.707m12.728.0-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+          </button>
+          
+        </div>
+      </div>
+    </div>
+    
+  </nav>
+  <aside id="side-menu" class="bg-slate-700/80 text-slate-700 dark:text-slate-100 fixed top-0 left-0 w-screen h-screen z-50" x-data="{sideMenuOpen: false, moreOpen: false}" @sidemenu.window="sideMenuOpen = true" x-show="sideMenuOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" style="display:none">
+    <div class="bg-white dark:bg-slate-700 w-10/12 h-screen p-4" @click.away="sideMenuOpen = false" x-show="sideMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-96" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-96">
+      <header class="flex justify-between">
+      <h1 class="font-bold text-2xl">Menu</h1>
+      <button aria-label="close side menu" type="button" class="p-1 rounded-full bg-slate-200 dark:bg-slate-600 hover:bg-red-400/75 dark:hover:bg-red-400/75" @click="sideMenuOpen = false">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-6 md:w-6 active:scale-95" fill="none" viewBox="0 0 24 24" stroke="currentcolor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path></svg>
+      </button>
+      </header>
+      <nav class="my-4">
+        <a href="{{ "" | absLangURL }}" class="flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-slate-400/25 dark:text-slate-100 focus:ring-2 focus:ring-sky-500">
+          🏠Home </a>
+          <!-- Current: "bg-sky-900 text-white", Default: "text-gray-300 hover:bg-sky-700 hover:text-white" -->
+          {{- $currentPage := . -}}
+          {{- range .Site.Menus.main -}}
+          {{- $url := .URL | absURL -}}
+          {{- $active := or (eq $currentPage.Permalink (absURL .URL)) ($currentPage.IsMenuCurrent "main" .) -}}
+          {{- if .HasChildren -}}
+            
+            <div class="relatif"
+              x-data="{
+                open: false,
+                toggle() {
+                    if (this.open) {
+                        return this.close()
+                    }
+    
+                    this.$refs.button.focus()
+    
+                    this.open = true
+                },
+                close(focusAfter) {
+                    if (! this.open) return
+    
+                    this.open = false
+    
+                    focusAfter && focusAfter.focus()
+                }
+            }"
+            x-on:keydown.escape.prevent.stop="close($refs.button)"
+            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+            x-id="['navbarDropdown{{ title .Identifier }}']"
+            class="relative"
+            >
+              <div>
+                <button 
+                x-ref="button"
+                x-on:click="toggle()"
+                :aria-expanded="open"
+                :aria-controls="$id('dropdown-button')"
+                type="button" class="flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-slate-400/25 dark:text-slate-100 focus:ring-2 focus:ring-sky-600  {{ if $currentPage.HasMenuCurrent "main" . }} bg-sky-700 text-slate-100{{ end }} " id="navbarDropdown{{ title .Identifier }}">
+                {{ .Pre }} {{- .Name -}} {{ .Post }} <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="ml-1 w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+                </svg>
+                </button>
+              </div>
+              <div 
+              x-ref="panel"
+              x-show="open"
+              x-transition.origin.top.left
+              x-on:click.outside="close($refs.button)"
+              :id="$id('dropdown-button')"
+              style="display: none;"
+              class="origin-top-right absolute left-3 mt-2 w-48 rounded-md shadow-lg py-1 bg-slate-100 dark:bg-slate-800 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                {{- range .Children -}}
+                {{- $childURL := .URL | absURL -}}
+                {{- if .Params.divider -}}
+                <hr class="dropdown-divider">
+                {{- else -}}
+                <a class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-1 text-left text-md hover:text-slate-50 hover:bg-sky-700   disabled:text-gray-500 {{ if or (eq $currentPage.Permalink (absURL .URL)) ($currentPage.IsMenuCurrent "main" .) }} bg-sky-200 text-slate-800{{ end }}" role="menuitem" tabindex="-1" id="user-menu-item-1" href="{{ $childURL }}"{{ if not (hasPrefix $childURL $baseURL) }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Pre }} {{- .Name -}} {{ .Post }}</a>
+                {{- end -}}
+                {{- end -}}
+              </div>
+            </div>
+          {{- else -}}
+          <a class="nav-link{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if not (hasPrefix $url $baseURL) }} target="_blank" rel="noopener noreferrer"{{ end }}>
+            {{ .Pre }} {{- .Name -}} {{ .Post }}
+          </a>
+          {{- end -}}
+          {{- end -}}
+
+
+        <hr class="my-4 border-slate-400/25">
+        {{- if .Site.Menus.footer -}}
+        <button type="button" @click="moreOpen = !moreOpen" x-text="moreOpen ? 'Less...': 'More...'" class="mb-4 flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-slate-400/25 dark:text-slate-100 focus:ring-2 focus:ring-sky-500">More...</button>
+        <template x-if="moreOpen">
+          <div>
+            {{- range .Site.Menus.footer -}}
+              {{- if .HasChildren -}}
+                  <a class="flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-slate-400/25 dark:text-slate-100 focus:ring-2 focus:ring-sky-500"{{ with .URL }} href="{{ . }}"{{ end }}{{ if not .Page }} rel="noopener noreferrer"{{ end }}>{{ partial "helpers/menu-name" . }}</a>
+                {{- range .Children -}}
+                  {{- if .Params.divider -}}
+
+                  {{- else -}}
+                      <a class="flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-slate-400/25 dark:text-slate-100 focus:ring-2 focus:ring-sky-500"{{ with .URL }} href="{{ . }}"{{ end }}{{ if not .Page }} rel="noopener noreferrer"{{ end }}>{{ partial "helpers/menu-name" . }}</a>
+                  {{- end -}}
+                {{- end -}}
+
+              {{- else -}}
+                <a class="flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-slate-400/25 dark:text-slate-100 focus:ring-2 focus:ring-sky-500"{{ with .URL }} href="{{ . }}"{{ end }}{{ if not .Page }} rel="noopener noreferrer"{{ end }}>{{ partial "helpers/menu-name" . }}</a>
+              {{- end -}}
+            {{- end -}}
+            </div>
+          </template>
+          {{- end -}}
+    </nav>
+    </div>
+  </aside>
+

@@ -1,0 +1,12 @@
+name = "Bakhtiar Rifai"
+avatar = "images/fotoku/profilku.webp?width=32px&height=32px" # Avatar image. Default to "images/profile.webp".
+bio = "Belajar sepanjang Hayat"
+company = "SMAN 2 Wates"
+location = "Indonesia"
+# about = "https://domain.tld" # The external about page. The internal about page will be used if not set.
+
+[params]
+  #layout = "compact"
+  [author]
+    name = "Bakhtiar Rifai"
+    avatar = "images/fotoku/profilku.webp?width=32px&height=32px"

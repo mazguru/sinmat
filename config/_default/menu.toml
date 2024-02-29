@@ -1,0 +1,96 @@
+[[main]]
+  name = "Belajar"
+  identifier = "dropdown"
+  pre = '📖'
+  weight ='1'
+[[main]]
+  id = "more"
+  weight = 6
+  parent = "dropdown"
+  name = "More 🛰️"
+  url = "belajar"
+
+[[main]]
+  name = "Matematika SMA"
+  identifier = "matsma"
+  pre = '🎲'
+  weight ='2'
+[[main]]
+  id = "more2"
+  weight = 6
+  parent = "matsma"
+  name = "More 🚀"
+  url = "mat-sma"
+
+
+[[main]]
+  name = "Pembatik"
+  identifier = "pembatik"
+  pre = '<svg class="inline w-4 h-4 mt-1 ml-1 md:-mt-1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="12px" height="12px" version="1.0" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"viewBox="0 0 200 200" xmlns:xlink="http://www.w3.org/1999/xlink"> <defs> <style type="text/css"><![CDATA[ .fil3{fill:#005B8C}.fil1{fill:#00659D}.fil2{fill:#151D3A}.fil0{fill:#FFB769}.fil4{fill:#FEFEFE;fill-rule:nonzero}]]> </style> </defs> <g id="Layer_x0020_1"> <metadata id="CorelCorpID_0Corel-Layer"/> <g id="_2296726788432"> <polygon class="fil0" points="23,111 177,111 199,184 1,184 "/> <path class="fil1" d="M33 119l10 0 -1 5 -10 0 1 -5zm12 0l10 0 -1 5 -10 0 1 -5zm12 0l8 0 0 5 -9 0 1 -5zm11 0l9 0 -1 5 -9 0 1 -5zm11 0l9 0 0 5 -10 0 1 -5zm11 0l9 0 0 5 -9 0 0 -5zm11 0l9 0 1 5 -10 0 0 -5zm12 0l9 0 0 5 -9 0 0 -5zm11 0l9 0 1 5 -10 0 0 -5zm11 0l9 0 0 5 -8 0 -1 -5zm11 0l10 0 1 5 -10 0 -1 -5zm12 0l9 0 1 5 -9 0 -1 -5zm10 6l3 9 -10 0 -2 -9 9 0zm-9 9l-11 0 -1 -9 10 0 2 9zm-13 0l-9 0 -1 -9 9 0 1 9zm-11 0l-10 0 0 -9 9 0 1 9zm-12 0l-10 0 0 -9 9 0 1 9zm-12 0l-10 0 0 -9 10 0 0 9zm-12 0l-9 0 0 -9 9 0 0 9zm-11 0l-10 0 0 -9 10 0 0 9zm-12 0l-10 0 1 -9 9 0 0 9zm-12 0l-9 0 1 -9 9 0 -1 9zm-12 0l-10 0 2 -9 10 0 -2 9zm-13 0l-10 0 3 -9 9 0 -2 9zm132 2l3 10 -10 0 -2 -10 9 0zm-10 10l-11 0 -1 -10 10 0 2 10zm-13 0l-10 0 -1 -10 9 0 2 10zm-12 0l-10 0 -1 -10 10 0 1 10zm-12 0l-10 0 -1 -10 10 0 1 10zm-13 0l-10 0 0 -10 10 0 0 10zm-12 0l-10 0 1 -10 9 0 0 10zm-12 0l-10 0 1 -10 9 0 0 10zm-12 0l-10 0 1 -10 10 0 -1 10zm-12 0l-10 0 1 -10 10 0 -1 10zm-12 0l-12 0 2 -10 11 0 -1 10zm-14 0l-11 0 3 -10 10 0 -2 10zm137 1l3 10 -11 0 -2 -10 10 0zm-10 10l-12 0 -2 -10 12 0 2 10zm-14 0l-11 0 -1 -10 10 0 2 10zm-13 0l-11 0 0 -10 10 0 1 10zm-13 0l-10 0 0 -10 10 0 0 10zm-12 0l-11 0 0 -10 10 0 1 10zm65 1l3 11 -12 0 -2 -11 11 0zm-11 11l-12 0 -2 -11 12 0 2 11zm-14 0l-11 0 -1 -11 10 0 2 11zm-13 0l-12 0 0 -11 10 0 2 11zm-14 0l-11 0 0 -11 10 0 1 11zm-13 0l-11 0 0 -11 11 0 0 11zm-13 0l-11 0 1 -11 10 0 0 11zm-10 -12l0 -10 10 0 0 10 -10 0zm-3 12l-10 0 0 -11 11 0 -1 11zm-9 -12l0 -10 10 0 0 10 -10 0zm-3 12l-12 0 1 -11 11 0 0 11zm-11 -12l2 -10 10 0 -1 10 -11 0zm-3 12l-11 0 2 -11 10 0 -1 11zm-9 -12l2 -10 9 0 -1 10 -10 0zm-4 12l-12 0 2 -11 12 0 -2 11zm-10 -12l2 -10 11 0 -1 10 -12 0zm-5 12l-13 0 3 -11 13 0 -3 11zm-9 -12l3 -10 11 0 -2 10 -12 0z"/> <polygon class="fil2" points="23,12 177,12 177,111 23,111 "/> <polygon class="fil3" points="170,20 170,106 30,106 "/> <polygon class="fil1" points="30,20 170,20 30,106 "/> <polygon class="fil2" points="1,184 199,184 199,188 1,188 "/> <path class="fil4" d="M60 91l0 -42 -15 0 0 -9 40 0 0 9 -15 0 0 42 -10 0zm32 0l0 -51 10 0 0 51 -10 0zm20 0l0 -51 10 0 0 23 21 -23 14 0 -19 20 20 31 -13 0 -14 -24 -9 9 0 15 -10 0z"/> </g> </g></svg>'
+  weight ='5'
+[[main]]
+  id = "artikel"
+  weight = 1
+  parent = "pembatik"
+  name = "Artikel" 
+  pre = "📝"
+  url = "/pembatik"
+[[main]]
+  id = "catatandrb"
+  weight = 4
+  parent = "pembatik"
+  pre = '👨‍💻'
+  name = "Catatan Duta"
+  url = "/pembatik/duta"
+
+  [[main]]
+  identifier = "video"
+  name = "Lainnya"
+  weight ='6'
+  pre = '🏷️'
+  [[main]]
+  parent = "video"
+  name = "Video"
+  weight ='1'
+  pre = '🎥'
+  url = 'https://www.youtube.com/channel/UCPqHmSdwMI5ah-1jrn00bBw'
+[[main]]
+  parent = "video"
+  name = "Tutorial"
+  weight ='2'
+  pre = '🖌️'
+  url = '/tutorial'
+
+[[footer]]
+  name = "About"
+  identifier = "support"
+  url = "/about"
+  weight = 1
+[[footer]]
+  name = "Contact"
+  url = "/contact"
+  weight = 2
+[[footer]]
+  name = "Archive"
+  url = "/arsip"
+  weight = 3
+[[footer]]
+  name = "Kebijakan Privasi"
+  url = "/privacy-police"
+  weight = 4
+
+[[link]]
+  name = "Rumah Belajar"
+  weight ='1'
+  pre = '<img class="icon" alt="rumah belajar" src="/cover/logo-rumah-belajar.png" data-sizes="auto" loading="lazy" width="30px" height="30px" style="object-fit: cover;"/>'
+  url = 'https://belajar.kemdikbud.go.id/'
+[[link]]
+  name = "Jogja Belajar"
+  weight ='2'
+  pre = '<img class="icon" alt="Jogja belajar" src="https://jogjabelajar.org/jb.ico" data-sizes="auto" loading="lazy" width="30px" height="30px" style="object-fit: cover;"/>'
+  url = 'https://belajar.kemdikbud.go.id/'
+[[link]]
+  name = "SMAN 2 Wates"
+  weight ='3'
+  pre = '<img class="icon" alt="SMAN 2 Wates" src="https://www.smadawates.sch.id/media_library/images/d8e5dfe5085097c32b7fbc96cd3c46ac.png" data-sizes="auto" loading="lazy" width="30px" height="30px" style="object-fit: cover;"/>'
+  url = 'https://belajar.kemdikbud.go.id/'

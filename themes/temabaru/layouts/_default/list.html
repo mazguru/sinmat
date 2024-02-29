@@ -1,0 +1,64 @@
+{{ define "header" }}
+<header class="text-gray-100  bg-gradient-to-b from-bluem-50/90 to-bluem-200/90 dark:from-sky-900 dark:to-blue-900/85">
+  <div class="container mx-auto px-2 lg:max-w-7xl pt-4 pb-4 text-center md:text-left">
+    <div class="w-100">
+      <h1 class="text-6xl font-semibold mb-5 tracking-tighter">{{ $tagname := split .Page.Title " " }} {{ range $tagname }} {{ . | humanize }} {{ end }} </h1>
+      <p class="text-base font-light max-w-1/2 md:text-xl lg:text-2xl">{{ .Params.description }}</p>
+    </div>
+    
+  </div>
+</header>
+
+{{ end }}
+{{ define "main" }}
+<section class="text-gray-600 body-font">
+  <div class="container mx-auto px-4 lg:max-w-7xl mt-8">
+    {{ partial "breadcrumb" . }}
+    <div class='prose max-w-none lg:prose-xl lg:prose-li:my-0 prose-p:text-justify prose-slate dark:prose-invert prose-headings:font-sans prose-headings:tracking-tight lg:prose-headings:my-2 prose-headings:my-2 prose-p:font-serif prose-ol:font-serif prose-ul:font-serif prose-pre:dark:border prose-pre:dark:border-slate-700 prose-li:my-0'>
+      {{- .Content -}}
+    </div>
+    {{- with sort .Sections ".Title" "asc" -}}
+    <div class="font-bold uppercase text-sky-600 dark:text-sky-400 text-sm mb-2">Kategori</div>
+    <h2 class="text-3xl font-bold dark:text-slate-200 tracking-tight mb-2">Mau belajar apa yuk?</h2>
+    <p class="text-lg mb-8 text-slate-500 dark:text-slate-300">Temukan kategori berdasarkan minatmu.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {{- range . -}}
+    {{- if gt .Pages.Len 0 -}}
+    <a class="block dark:bg-slate-800 rounded-lg px-6 py-8 bg-white shadow-md hover:shadow-lg active:scale-95 transition-all active:shadow-sm" href="{{ .Permalink }}">
+      <h3 class="flex text-slate-900 dark:text-white mt-2 text-base font-bold tracking-tight">{{- .Title -}}</h3>
+      <div class="flex items-center">
+        {{- if .Page.Params.Images -}}
+            <img class="w-8 h-8 rounded lazyload lazyloaded" src="{{ index .Page.Params.Images 0 | absURL }}" data-sizes="auto" alt="{{ partial "helpers/title" . }}">
+        {{else}}
+          <img class="img-fluid rounded lazyload ml-3 lazyloaded" src="{{ absURL (default "images/default-image.svg" .Site.Params.defaultimage) }}" data-sizes="auto" alt="{{ partial "helpers/title" . }}">
+        {{ end }}
+        <p class="text-slate-500 dark:text-slate-300 ml-3 text-sm">{{ .Params.description }}</p>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentcolor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+        </span>
+      </div>
+    </a>
+    {{- end -}}
+    {{- end -}}
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ $postCount := len .Pages }}
+  {{ if eq $postCount 0 }}
+  <div class="container mx-auto px-4 text-center lg:max-w-7xl my-8">
+    {{ partial "helpers/image" (dict "filename" "/images/404.png" "alt" .Title "class" "lazyload rounded lazyloaded mx-auto" "resources" .Resources) }}
+    <h2 class="text-3xl font-bold tracking-tight mb-2">Ups.... Belum Ada Postingan</h2>
+    <p class="text-lg mb-8 text-slate-500 dark:text-slate-300">Yuk bantu kami untuk membuat postingan</p>
+    <a class="w-full p-2 bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-sky-400 rounded-lg active:bg-sky-500 text-white cursor-pointer" href="/topik" role="button">Bantu</a>
+  </div>
+  {{ else }}
+  <div class="container mx-auto px-4 lg:max-w-7xl mt-16">
+    <div class="font-bold uppercase text-sky-600 dark:text-sky-400 text-sm mb-2">Artikel</div>
+    <h2 class="text-3xl font-bold tracking-tight mb-2">Apa yang ada di {{ .Title }}?</h2>
+    <p class="text-lg mb-8 text-slate-500 dark:text-slate-300">Yuk, baca artikelnya agar tambah pengetahuan.</p>
+    {{ partial "list-img" . }}
+  </div>
+  {{ end }}
+
+{{ end }}

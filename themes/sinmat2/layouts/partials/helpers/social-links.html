@@ -1,0 +1,61 @@
+{{- $github := dict "github" (dict "url" "https://github.com/%s" "title" "GitHub" "icon" "github") -}}
+{{- $gitlab := dict "gitlab" (dict "url" "https://gitlab.com/%s" "title" "GitLab" "icon" "gitlab") -}}
+{{- $twitter := dict "twitter" (dict "url" "https://twitter.com/%s" "title" "twitter" "icon" "twitter") -}}
+{{- $facebook := dict "facebook" (dict "url" "https://facebook.com/%s" "icon" "facebook") -}}
+{{- $facebookGroup := dict "facebookgroup" (dict "url" "https://facebook.com/groups/%s" "icon" "facebook" "title" "Facebook Group") -}}
+{{- $linkedin := dict "linkedin" (dict "url" "https://linkedin.com/%s" "icon" "linkedin-in" "title" "LinkedIn") -}}
+{{- $stackoverflow := dict "stackoverflow" (dict "url" "https://stackoverflow.com/users/%s" "icon" "stack-overflow" "title" "Stack Overflow") -}}
+{{- $weibo := dict "weibo" (dict "url" "https://weibo.com/%s") -}}
+{{- $zhihu := dict "zhihu" (dict "url" "https://www.zhihu.com/people/%s") -}}
+{{- $quora := dict "quora" (dict "url" "https://www.quora.com/profile/%s") -}}
+{{- $instagram := dict "instagram" (dict "url" "https://www.instagram.com/%s" "title" "instagram" "icon" "instagram") -}}
+{{- $tumblr := dict "tumblr" (dict "url" "https://%s.tumblr.com") -}}
+{{- $reddit := dict "reddit" (dict "url" "https://www.reddit.com/user/%s") -}}
+{{- $telegram := dict "telegram" (dict "url" "https://t.me/%s" "icon" "telegram") -}}
+{{- $qq := dict "qq" (dict "url" "http://wpa.qq.com/msgrd?v=3&uin=%s&site=qq&menu=yes" "title" "QQ") -}}
+{{- $dockerhub := dict "dockerhub" (dict "url" "https://hub.docker.com/u/%s" "icon" "docker" "title" "Docker Hub") -}}
+{{- $bitbucket := dict "bitbucket" (dict "url" "https://bitbucket.org/%s") -}}
+{{- $kaggle := dict "kaggle" (dict "url" "https://kaggle.com/%s") -}}
+{{- $youtube := dict "youtube" (dict "url" "https://www.youtube.com/channel/%s" "icon" "youtube") -}}
+{{- $discord := dict "discord" (dict "url" "https://discord.com/invite/%s" "icon" "discord") -}}
+{{- $discourse := dict "discourse" (dict "url" "%s" "icon" "discourse") -}}
+{{- $items := merge $github $gitlab $twitter $facebook $facebookGroup $linkedin $stackoverflow $weibo $zhihu $quora $instagram $discourse $discord $youtube -}}
+{{- $lastfm := dict "lastfm" (dict "url" "https://www.last.fm/user/%s" "title" "Last.fm") -}}
+{{- $bilibili := dict "bilibili" (dict "url" "https://space.bilibili.com/%s" "title" "bilibili" "icon" "-bilibili") -}}
+{{- $tiktok := dict "tiktok" (dict "url" "https://www.tiktok.com/@%s" "title" "TikTok" "icon" "-tiktok") -}}
+{{- $pinterest := dict "pinterest" (dict "url" "https://www.pinterest.com/%s" "icon" "pinterest") -}}
+{{- $items = merge $items $tumblr $reddit $telegram $qq $dockerhub $bitbucket $kaggle $lastfm $bilibili $tiktok $pinterest -}}
+{{- $size := default "" .size -}}
+
+{{- range $key, $user := .links -}}
+  {{- if eq $key "email" -}}
+  <div>
+    <a class="flex p-1 text-center text-2xl rounded-full text-bluem-100 focus:outline-none focus:ring-2 focus:ring-bluem-50 hover:bg-sky-50" href="mailto:{{ $user }}" title="{{ title $key }}">
+      <span class="icon-gmail"></span>    
+    </a>
+  </div>
+  {{- else if eq $key "medium" -}}
+    {{- $url := urls.Parse $user -}}
+    {{- if eq $url.Host "" -}}
+      {{- $url = printf "https://medium.com/@%s" $user | urls.Parse -}}
+    {{- end -}}
+      <a class="nav-link social-link" target="_blank" href="{{ $url.String }}" title="Medium" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16">
+          {{ .path }}
+        </svg>
+      </a>
+  {{- else -}}
+    {{- with index $items $key -}}
+    <div>
+      <a class="flex p-1 text-center text-2xl rounded-full text-bluem-100 focus:outline-none focus:ring-2 focus:ring-bluem-50 hover:bg-sky-50" target="_blank" href="{{ printf .url $user }}" title="{{ default (title $key) .title }}" rel="noopener noreferrer">
+        <p class="icon-{{ .icon }}"></p>
+      </a>
+    </div>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<div>
+  <a class="flex p-1 text-center text-2xl rounded-full text-bluem-100 focus:outline-none focus:ring-2 focus:ring-bluem-50 hover:bg-sky-50" target="_blank" href="https://feeds.feedburner.com/sinau-matematika" title="RSS" rel="noopener noreferrer">
+    <p class="icon-rss"></p>
+  </a>
+</div>

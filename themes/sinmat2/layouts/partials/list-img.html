@@ -1,0 +1,24 @@
+
+  <div class="grid  grid-cols-1 lg:grid-cols-3 md:grid-cols-2 py-2 sm:grid-cols-1 gap-4" tabindex="0">
+  {{- range .Paginator.Pages -}}
+  <div class="ease-in duration-150 hover:-translate-y-1 mx-auto shadow-lg p-4 rounded-lg bg-white dark:bg-slate-800 hover:shadow-md max-w-sm">
+    <a href="{{ .Permalink }}">
+      {{ if .Params.Tumbnail }}
+            <img class="w-full mx-auto object-cover lazyload center dark:brightness-75" alt="{{ partial "helpers/title" . }}" src="/img/placeholder.svg" onerror="this.src='/img/placeholder2.svg'" data-src="{{ index .Params.Tumbnail 0 | absURL }}" loading="lazy" data-sizes="auto" height='180px'/>
+            {{else}}
+              {{ partial "helpers/image" (dict "filename" "/tumbnail/default.png?height=180px" "alt" .Title "class" " object-cover w-full lazyload mx-auto center dark:brightness-75" "resources" .Resources) }}
+           
+          {{- end -}}
+    </a>
+    <div class="p-2">
+      <h5 class="text-gray-900 dark:text-gray-100 hover:text-bluem-500 dark:hover:underline text-lg font-bold mb-2">
+        <a href="{{ .Permalink }}">{{ partial "helpers/title" . }}</a>
+      </h5>	
+      <p class="text-gray-500 text-sm mb-1">
+        {{ partial "post/excerpt" . }} 
+      </p>
+    </div>
+  </div>
+  {{- end -}}
+  </div>
+  {{- partial "pagination" . -}}

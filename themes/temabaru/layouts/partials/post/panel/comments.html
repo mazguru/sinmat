@@ -1,0 +1,5 @@
+{{- if and (default true .Site.Params.comment) (default true .Params.comment) -}}
+<a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i style='transform: rotate(90deg)' class="fa-fw bi bi-chat-text-fill"></i>
+</a>
+{{- end -}}

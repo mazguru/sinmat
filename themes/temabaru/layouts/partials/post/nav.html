@@ -1,0 +1,28 @@
+{{- if or .Prev .Next -}}
+
+<div class="grid not-prose md:grid-cols-2 gap-4 pt-4">
+  {{- with .Prev -}}
+  <a href="{{ .Permalink }}" class="flex justify-start text-gray-700 dark:text-white hover:text-blue-800 hover:underline">
+      <div class="p-2 rounded-lg shadow-md bg-[#005af0] text-white w-10 h-10 ">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+        </svg>
+      </div>
+      <h4 class="ml-2 text-base font-semibold">{{ partial "helpers/title" . }}</h4>
+    
+       
+  </a>
+  {{- end -}}
+  {{- with .Next -}}
+  <a href="{{ .Permalink }}" class="flex justify-end text-gray-700 dark:text-white hover:text-blue-800 hover:underline" href="/posts/hello-world">
+    <h4 class="text-right mr-2 font-semibold text-base ">{{ partial "helpers/title" . }}</h4>
+    <div class="p-2 rounded-lg shadow-md bg-[#005af0] text-white w-10 h-10 ">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+      </svg>
+      
+    </div>
+  </a>
+  {{- end -}}
+</div>
+{{- end -}}

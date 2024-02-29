@@ -1,0 +1,78 @@
+<!-- Breadcrumbs for articles -->
+{{ $urlParts := sub (len (split .RelPermalink "/")) 2 }}
+
+<!-- Post pages -->
+{{ if eq $urlParts 3 }}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Site",
+      "item": "{{ .Site.BaseURL }}"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .CurrentSection.Parent.Title }}",
+      "item": "{{ .CurrentSection.Parent.Permalink }}"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ .CurrentSection.Title }}",
+      "item": "{{ .CurrentSection.Permalink }}"
+    },{
+      "@type": "ListItem",
+      "position": 4,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }]
+}
+</script>
+<!-- Subsection pages -->
+{{ else if eq $urlParts 2 }}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Site",
+      "item": "{{ .Site.BaseURL }}"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .CurrentSection.Parent.Title }}",
+      "item": "{{ .CurrentSection.Parent.Permalink }}"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }]
+}
+</script>
+<!-- Check for main section pages and meta pages (about, disclaimer) -->
+{{ else if eq $urlParts 1 }}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Site",
+      "item": "{{ .Site.BaseURL }}"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }]
+}
+</script>
+{{ end }}
+
+<!-- End of Breadcrumb -->

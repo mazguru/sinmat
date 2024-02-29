@@ -1,0 +1,80 @@
+{{- partial "head/favicons" . -}}
+<meta name="keywords" content="{{ if .IsPage }}{{ delimit .Keywords ", " }}{{ else }}{{ $.Site.Params.keywords }}{{ end }}" />
+<meta name="description" content="{{ if .IsPage }}{{ .Description }}{{ else }}{{ $.Site.Params.description }}{{ end }}" />
+{{- template "_internal/schema.html" . -}}
+{{ template "_internal/opengraph.html" . }}
+{{- template "_internal/twitter_cards.html" . -}}
+{{- partial "head/meta" . -}}
+{{- partial "head/feed" . -}}
+{{- partial "head/site-verification" . -}}
+{{- if eq .Permalink (absLangURL "search/") -}}
+<meta data-name="search-index" content="{{ absLangURL "index.json" }}">
+{{- end -}}
+
+{{ $mainStyle := resources.Get "css/main.css" | postCSS }}
+{{ $iconStyle := resources.Get "css/icon.css" }}
+{{- $highlightStyle := resources.Get "css/highlight.css" -}}
+{{- $customStyle := resources.Get "css/custom.css" -}}
+{{ if .Site.IsServer }}
+<!-- Gunakan Tailwind dari CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "bluem": {
+            "50": "#37b7ed",
+            "100": "#2dade3",
+            "200": "#23a3d9",
+            "300": "#1999cf",
+            "400": "#0f8fc5",
+            "500": "#0585bb",
+            "600": "#007bb1",
+            "700": "#0071a7",
+            "800": "#00679d",
+            "900": "#005d93"
+          },
+          
+        },
+      },
+    },
+    
+  }
+</script> 
+{{ $styles := slice $customStyle $highlightStyle $iconStyle | resources.Concat "css/main.css" | resources.Minify | resources.Fingerprint | resources.PostProcess }}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" data-turbo-track=reload />
+{{ else }}
+<!-- gunakan Tailwind dari hasil build -->
+{{ $styles := slice $customStyle $mainStyle $highlightStyle $iconStyle | resources.Concat "css/main.css" | resources.Minify | resources.Fingerprint | resources.PostProcess }}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" data-turbo-track=reload />
+{{ end }}
+
+
+
+{{- if or .Params.math .Site.Params.math -}}
+{{- $katexStyle := resources.Get "katex/index.css" | slice | resources.Concat "css/katex.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $katexStyle.Permalink }}" integrity="{{ $katexStyle.Data.Integrity }}" data-turbo-track=reload>
+{{- end -}}
+
+{{ if .Site.IsServer }}
+<!--kosong-->
+{{ else }}
+{{- partial "assets/google-tag" . -}}
+{{- partial "assets/google-analitic" . -}}
+{{- partial "assets/google-adsense" . -}}
+
+{{ end }}
+
+{{- $script := resources.Get "js/alpine.js" | js.Build "main.js" | minify -}}
+<script type="text/javascript" src="{{ $script.Permalink }}" data-turbo-track=reload defer></script>
+<!--
+{{- $script2 := resources.Get "js/turbo.js" | js.Build "turbo.js" | minify -}}
+<script type="text/javascript" src="{{ $script2.Permalink }}" data-turbo-track=reload defer></script>
+-->
+{{- if or .Params.math .Site.Params.math -}}
+<meta name="turbo-visit-control" content="reload">
+{{- partial "assets/katex/js" . -}}
+{{- end -}}

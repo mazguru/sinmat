@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class='container lg:max-w-7xl mt-16 mx-auto px-4'>
+  <h1 class="font-bold uppercase text-sky-600 dark:text-sky-400 text-sm mb-2">Semua Topik</h1>
+  <p class="text-3xl font-bold tracking-tight mb-2">Topik apa yang kamu cari?</p>
+  <p class="text-base mb-8">Temukan apa yang kamu minati...</p>
+    <div class='row'>
+      <div class="col-md-12">
+      {{- range .Data.Terms.ByCount -}}
+      {{- $count := len .Pages -}}
+          <a class='border border-slate-400 dark:border-slate-600 p-1 px-2 m-2 font-medium rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 inline-flex items-center gap-1 active:scale-95 transition-all' href="{{ .Page.Permalink }}">
+            {{ .Page.Title }} 
+            <span class="text-sm h-6 w-6 rounded-full inline-flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-200"> 
+              {{ $count }}
+            </span>
+          </a>
+      {{- end -}}
+      </div>
+    </div>
+</div>
+<div class="container lg:max-w-3xl my-16 mx-auto p-8 shadow-md bg-white dark:bg-slate-800 rounded-lg">
+  <h1 class="font-bold uppercase text-sky-600 dark:text-sky-400 text-sm mb-2">REQUEST</h1>    
+  <h5 class="text-lg mb-8">Tidak menemukan topik yang kamu cari? kirim masukan kepada kami agar kami dapat segera membuatnya</h5>
+      <form name="Topik" method="POST" data-netlify="true">
+        <input type="hidden" name="_language" value="id">
+        <input type="hidden" name="_subject" value="[Request] Topik di Sinau Matematika">
+        <input type="hidden" name="_next" value="https://www.sinmat.my.id/topik">
+        <div class="mb-3">
+          <label class="block text-gray-700 text-sm font-bold mb-2 dark:text-white" for="username">
+            Email
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="_replyto" type="email" placeholder="Alamat Email" required>
+          <div id="emailHelp" class="text-sm">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="block text-gray-700 text-sm font-bold mb-2 dark:text-white">Topik</label>
+          <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="message" placeholder="Topik apa yang kamu minta?" required></textarea>
+        </div>
+        <input class="px-3 py-2 bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-sky-400 rounded-lg active:bg-sky-500 text-white cursor-pointer" type="submit" value="Kirim">
+      </form>
+</div>
+{{ end }}

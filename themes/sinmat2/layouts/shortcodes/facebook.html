@@ -1,0 +1,7 @@
+{{- $link := .Get 0 -}}
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>  
+  <div class="fb-post" 
+      data-href="{{ $link }}"
+      data-width="400"></div>
+<br/>
+<a href='{{ $link }}' target=_blank> View Facebook </a>

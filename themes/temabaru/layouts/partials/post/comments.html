@@ -1,0 +1,25 @@
+{{- if and (default true .Site.Params.comment) (default true .Params.comment) -}}
+
+<div class="shadow-md p-2 md:p-4 lg:p-4 xl:p-8 bg-white dark:bg-slate-800 rounded-xl mt-2 md:mt-4 lg:mt-8" id="post-comments">
+  <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+    </svg>    
+    Komentar
+  </h2>
+  <button data-disqus-identifier='{{ md5 (.LinkTitle) }}' x-data @click="$store.comment.toggle()" class="disqus-comment-count px-3 py-2 mt-8 text-white w-full bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-sky-400 rounded-full active:scale-95 active:shadow-none shadow-lg shadow-teal-800/25">Buka
+    Komentar!</button>
+
+    {{- partial "post/comments/custom" . -}}
+    {{- partial "post/comments/utterances" . -}}
+</div>
+<div aria-hidden="true" tabindex="-1" x-data x-show="$store.comment.open" @click="$store.comment.toggle()" style="display:none" class="overlay transform-gpu" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+  <div x-show="$store.comment.open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full" class="static max-w-4xl mt-[60vh] w-full min-h-[400px] mx-auto p-8 xl:p-16 bg-white dark:bg-slate-800 rounded-t-2xl transform-gpu">
+    <div id="disqus_thread"></div>
+  </div>
+</div>
+<script>var disqus_shortname="mazguru",disqus_identifier="{{ md5 (.LinkTitle) }}",disqus_url="{{ .Permalink }}",disqus_config=function(){this.language="id",this.callbacks.onReady.push(function(){})};function loadDisqusScript(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://"+disqus_shortname+".disqus.com/embed.js",(document.head||document.body).appendChild(e)}function resetDisqus(){window.DISQUS&&DISQUS.reset({reload:!0,config:function(){this.page.identifier=location.pathname.replaceAll("/",""),this.page.url="{{ .Permalink }}",this.page.title="{{ .Title }}",this.language="id"}})}document.addEventListener("alpine:init",()=>{Alpine.store("comment",{open:!1,toggle(){this.open=!this.open,window.DISQUS?resetDisqus():loadDisqusScript()}})})</script>
+<style>
+  #disqus_thread>iframe[sandbox]{display:none!important}
+</style>
+{{- end -}}

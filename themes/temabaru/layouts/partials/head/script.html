@@ -1,0 +1,13 @@
+
+{{- range .Site.Params.customJS -}}
+<script src="{{ absURL . }}" crossorigin="anonymous"></script>
+{{- end -}}
+
+{{- $lazyScript := resources.Get "lazysizes/index.js" }}
+{{- $configlazyScript := resources.Get "js/lazysizesconfig.js" | resources.ExecuteAsTemplate "lazysizesconfig.js" . -}}
+
+{{- $alpine := resources.Get "js/alpine.js" | js.Build "alpine.js" -}}
+
+{{- $scriptLazy := slice $configlazyScript $lazyScript | resources.Concat "js/lazysizes.js" | minify -}}
+<script defer src="{{ $scriptLazy.Permalink }}" crossorigin="anonymous"></script>
+<script defer src="{{ $alpine.Permalink }}" crossorigin="anonymous"></script>

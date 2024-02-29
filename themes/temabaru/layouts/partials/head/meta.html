@@ -1,0 +1,23 @@
+
+<meta name="Description" content="{{ if .IsPage }}{{ .Description }}{{ else }}{{ $.Site.Params.description }}{{ end }}">
+
+{{- template "_internal/opengraph.html" . -}}
+{{- template "_internal/twitter_cards.html" . -}}
+
+<meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
+
+<meta name="theme-color" content="#0585bb" media="(prefers-color-scheme: light)">
+
+{{- with .Site.Params.app.tileColor -}}
+    <meta name="msapplication-TileColor" content="{{ . }}">
+{{- end -}}
+
+{{- if eq .Permalink (absLangURL "search/") -}}
+<meta data-name="search-index" content="{{ absLangURL "index.json" }}">
+{{- end -}}
+
+{{- $content := default $.Site.Params.metaRobots .Params.metaRobots -}}
+{{- if and (not (and (isset .Params "metarobots") (not .Params.metaRobots))) $content -}}
+    <meta name="robots" content="{{ $content }}" />
+{{- end -}}

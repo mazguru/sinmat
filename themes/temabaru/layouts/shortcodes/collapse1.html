@@ -1,0 +1,9 @@
+{{- $id := .Get 0 -}}
+<div x-data="{ expanded: false }">
+  <button class="text-sky-900 font-bold hover:underline" @click="expanded = ! expanded" data-target="{{ $id }}" aria-expanded="false" aria-controls="{{ $id }}">
+    Alternatif Penyelesaian ✍️
+  </button>
+  <div class="collapse" x-show="expanded" x-collapse id="{{ $id }}">
+  {{ .Inner | markdownify }}
+  </div>
+</div>

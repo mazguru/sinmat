@@ -1,0 +1,58 @@
+{{ define "header" }}
+<header class="text-gray-100  bg-gradient-to-b from-bluem-50/90 to-bluem-200/90 dark:from-sky-900 dark:to-blue-900/85">
+  <div class="container mx-auto px-4 lg:max-w-7xl py-16 text-center">
+    <div class="w-100">
+      <h1 class="text-6xl font-semibold mb-5 tracking-tighter">{{ $tagname := split .Page.Title " " }}
+        {{ range $tagname }}
+          {{ . | humanize }}
+        {{ end }} </h1>
+      <p class="text-base font-light max-w-1/2 md:text-xl lg:text-2xl">{{ .Params.description }}</p>
+    </div>
+  </div>
+</header>
+{{ end }}
+{{ define "main" }}
+{{- $pages :=  (.Paginate .RegularPagesRecursive).Pages -}}
+{{- $paginator := .Paginate $pages.ByDate.Reverse (default 100 .Site.Params.archive.paginate) -}}
+<div class="container mx-auto px-4 lg:max-w-7xl mt-16">
+    {{- $count := len $paginator.Pages -}}
+    {{- $lastYear := 0 -}}
+    {{- range $idx, $post := $paginator.Pages -}}
+    {{- $currentYear := $post.Date.Format "2006" }}
+    {{- $lastPost := $idx | add -1 | index $paginator.Pages -}}
+    {{- if or (eq $idx 0) (ne ($lastPost.Date.Format "2006") $currentYear) -}}
+    {{- if and (ne $lastYear 0) (ne $lastYear $currentYear) -}}
+    {{/* Different years, close the previous ul tag */}}
+    {{ printf "</ul></div>" | safeHTML }}
+    {{- end -}}
+    <div class="shadow-md mx-auto p-4 md:px-8 lg:p-12 max-w-4xl bg-white dark:bg-slate-800 my-8 rounded-xl">
+      <h3 class="font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight mb-4">{{ $currentYear }}</h3>
+      <ol class="archive-posts">
+      {{- end -}}
+      <li class="mb-2 rounded-md line-clamp-2 cols-2">
+        <a class="p-2 w-full h-full inline-flex items-center gap-2 bg-slate-100 hover:bg-sky-600 hover:text-white dark:bg-slate-700 dark:hover:bg-sky-600" href="{{ .Permalink }}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path>
+          </svg>
+          {{ partial "helpers/title" . }}
+ <span class="ml-auto float-right">{{ .Date.Format (default "Jan 2" $.Site.Params.archive.dateFormat) }}
+</span>
+        </a>
+      </li>
+      {{- if eq $idx (sub $count 1) -}}
+      {{/* Last item, close current ul tag */}}
+      </ol>
+    </div>
+    {{- end -}}
+    {{- $lastYear = $currentYear }}
+    {{- end -}}
+    {{- partial "pagination" . -}}
+</div>
+{{ end }}
+
+{{ define "title" }}
+{{- $pages := where .Site.RegularPages "Type" "in" (default (slice "posts") .Site.Params.mainSections) -}}
+{{- $paginator := .Paginate $pages.ByDate.Reverse (default 100 .Site.Params.archive.paginate) -}}
+{{- partial "head/title" . -}}
+{{ end }}
+

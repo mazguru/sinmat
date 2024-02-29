@@ -1,0 +1,201 @@
+{{ define "section1" }}
+<header class=" bg-gradient-to-b from-blue-100/90 to-blue-200/90 dark:from-sky-900 dark:to-blue-900/85">
+  <div class="container mx-auto px-4 lg:max-w-7xl py-16 text-center md:text-left">
+    <div class="relative py-2 md:py-0">
+      <img class="origin-bottom-right right-0 -bottom-96 static md:absolute w-100 md:w-96 lg:w-2/5 lazyload"
+        src="/images/landing-image.svg" alt="Sinau Matematika" data-size="auto" width="400px" height="425">
+    </div>
+    <div class="w-100 md:w-1/2">
+      <h1 class="text-6xl font-semibold mb-5 tracking-tighter">Sinau Matematika</h1>
+      <p class="text-base font-light max-w-1/2 md:text-xl lg:text-2xl">Mari belajar bersama agar kebahagiaan selalu
+        dalam diri kita. Dengan belajar, seseorang akan menjadi pintar, dengan kepintaran seseorang akan merasa bahagia.
+      </p>
+      <div class="mt-4 flex flex-row gap-3 justify-center md:justify-start">
+        <a href="/belajar/"
+          class="shadow-lg px-3 py-2 text-white bg-blue-500 border border-blue-500 hover:bg-white hover:text-blue-900 focus:ring-2 focus:ring-blue-400 rounded-lg active:bg-sky-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-100">Mulai
+          Belajar</a>
+        <a href="#newsletter"
+          class="shadow-lg px-3 py-2 rounded-lg border border-white transition ease-in-out delay-150 duration-100 hover:bg-white hover:text-bluem-900 hover:-translate-y-1 hover:scale-105 focus:ring-2 focus:ring-bluem-400 active:bg-sky-500"
+          data-turbo=false>Join Newsletter</a>
+      </div>
+    </div>
+  </div>
+</header>
+{{ end }}
+
+{{ define "main" }}
+<div class="container mx-auto px-4 lg:max-w-7xl mt-16">
+  <div class="font-bold uppercase text-sky-600 dark:text-sky-400 text-sm mb-2">Update 🔥</div>
+  <h2 class='text-3xl font-bold tracking-tight mb-2'>Artikel Terbaru di {{with .Site.Params.brand2}}{{ . }}{{end}}</h2>
+    <p class='text-lg mb-8 text-slate-500 dark:text-slate-300'>Apa yang ingin kamu tau?</p>
+    {{ partial "list-img" . }}
+</div>
+{{ end }}
+
+{{ define "title" }}
+{{- $pageNumber := "" -}}
+{{- if gt .Paginator.PageNumber 1 -}}
+{{- $pageNumber = printf " %s" (T "pagination_title" .Paginator) -}}
+{{- end -}}
+{{- printf "%s%s" .Site.Title $pageNumber -}}
+{{ end }}
+
+{{ define "index2" }}
+{{ if and .IsHome ( eq .Paginator.PageNumber 1 ) }}
+<div class="container mx-auto px-4 lg:max-w-7xl mt-16">
+  <div class='text-center'>
+    <h3 class='text-2xl'>🔥 Artikel Matematika</h3>
+    <p class='lead text-muted'>Apa yang ingin kamu pelajari?</p>
+  </div>
+  <div class="grid  grid-cols-1 lg:grid-cols-3 md:grid-cols-2 py-2 sm:grid-cols-1 gap-4" tabindex="0">
+    {{ range first 9 .Site.Taxonomies.seri.matematika }}
+    <div
+      class="ease-in duration-150 hover:-translate-y-1 mx-auto shadow-lg p-4 rounded-lg bg-white dark:bg-slate-800 hover:shadow-md max-w-sm">
+      <a href="{{ .Permalink }}">
+        {{ if .Params.Tumbnail }}
+        <img class="w-full mx-auto object-cover lazyload center dark:brightness-75" alt="{{ partial " helpers/title" .
+          }}" src="/img/placeholder.svg" onerror="this.src='/img/placeholder2.svg'"
+          data-src="{{ index .Params.Tumbnail 0 | absURL }}" loading="lazy" data-sizes="auto" height='180px' />
+        {{else}}
+        {{ partial "helpers/image" (dict "filename" "/tumbnail/default.png?height=180px" "alt" .Title "class"
+        "object-cover w-full lazyload mx-auto center dark:brightness-75" "resources" .Resources) }}
+
+        {{- end -}}
+      </a>
+      <div class="p-2">
+        <h5 class="text-gray-900 dark:text-gray-100 hover:text-bluem-500 dark:hover:underline text-lg font-bold mb-2">
+          <a href="{{ .Permalink }}">{{ partial "helpers/title" . }}</a>
+        </h5>
+        <p class="text-gray-500 text-sm mb-1">
+          {{ partial "post/excerpt" . }}
+        </p>
+        <section class="flex pb-2 gap-1 flex-wrap">
+          {{- range $key, $value := .Site.Taxonomies -}}
+          {{- range ($.GetTerms $key) -}}
+          <a rel="tag"
+            class="p-1 px-1 rounded-md text-xs font-medium bg-sky-100 dark:bg-sky-700 dark:hover:bg-sky-600/25 hover:bg-sky-600/25"
+            href="{{ .Permalink }}">#{{ .Name }}</a>
+          {{- end -}}
+          {{- end -}}
+        </section>
+      </div>
+    </div>
+    {{- end -}}
+  </div>
+
+</div>
+
+<div class="container mx-auto px-4 lg:max-w-7xl mt-16">
+  <div class='text-center'>
+    <h3 class='text-2xl'>🔥 Aktivitas Duta</h3>
+    <p class='lead text-muted'>Lihat Aktivitas Penulis sebagai Duta</p>
+  </div>
+  <div class="grid  grid-cols-1 lg:grid-cols-3 md:grid-cols-2 py-2 sm:grid-cols-1 gap-4" tabindex="0">
+    {{ range first 9 .Site.Taxonomies.seri.duta }}
+    <div
+      class="ease-in duration-150 hover:-translate-y-1 mx-auto shadow-lg p-4 rounded-lg bg-white dark:bg-slate-800 hover:shadow-md max-w-sm">
+      <a href="{{ .Permalink }}">
+        {{ if .Params.Tumbnail }}
+        <img class="w-full mx-auto object-cover lazyload center dark:brightness-75" alt="{{ partial " helpers/title" .
+          }}" src="/img/placeholder.svg" onerror="this.src='/img/placeholder2.svg'"
+          data-src="{{ index .Params.Tumbnail 0 | absURL }}" loading="lazy" data-sizes="auto" height='180px' />
+        {{else}}
+        {{ partial "helpers/image" (dict "filename" "/tumbnail/default.png?height=180px" "alt" .Title "class"
+        "object-cover w-full lazyload mx-auto center dark:brightness-75" "resources" .Resources) }}
+
+        {{- end -}}
+      </a>
+      <div class="p-2">
+        <h5 class="text-gray-900 dark:text-gray-100 hover:text-bluem-500 dark:hover:underline text-lg font-bold mb-2">
+          <a href="{{ .Permalink }}">{{ partial "helpers/title" . }}</a>
+        </h5>
+        <p class="text-gray-500 text-sm mb-1">
+          {{ partial "post/excerpt" . }}
+        </p>
+        <section class="flex pb-2 gap-1 flex-wrap">
+          {{- range $key, $value := .Site.Taxonomies -}}
+          {{- range ($.GetTerms $key) -}}
+          <a rel="tag"
+            class="p-1 px-1 rounded-md text-xs font-medium bg-sky-100 dark:bg-sky-700 dark:hover:bg-sky-600/25 hover:bg-sky-600/25"
+            href="{{ .Permalink }}">#{{ .Name }}</a>
+          {{- end -}}
+          {{- end -}}
+        </section>
+      </div>
+    </div>
+    {{- end -}}
+  </div>
+
+</div>
+{{ end }}
+{{ end }}
+{{ define "section3" }}
+<section id="newsletter" class="max-w-md mx-auto px-7 sm:max-w-3xl lg:max-w-7xl">
+  <div class="relative px-6 py-10 overflow-hidden bg-sky-500 shadow-xl rounded-2xl sm:px-12 sm:py-20">
+    <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0"><svg
+        class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"
+        fill="none" viewBox="0 0 1463 360" loading="lazy">
+        <path class="text-sky-600 text-opacity-40" fill="currentcolor"
+          d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z"></path>
+        <path class="text-sky-600 text-opacity-40" fill="currentcolor"
+          d="M-217.088 544.086 1544.761 72l134.327 501.316-1761.849 472.086z"></path>
+      </svg></div>
+    <div class="relative">
+      <div class="sm:text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">📰 Newsletter</h2>
+        <p class="max-w-2xl mx-auto mt-6 text-lg text-sky-100">Dapatkan info postingan terbaru dari Sinau
+          Matematika dengan berlangganan newsletter via email.</p>
+      </div>
+      <form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow"
+      onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=sinau-matematika', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true" class="mt-12 sm:mx-auto sm:flex sm:max-w-lg">
+        <div class="flex-1 min-w-0"><label for="cta-email" class="sr-only">Email address</label>
+          <input id="cta-email" type="email"
+            class="block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-transparent rounded-md shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-500"
+            placeholder="Enter your email">
+        </div>
+        <input type="hidden" value="sinau-matematika" name="uri" />
+        <input type="hidden" name="loc" value="en_US" />
+        <div class="mt-4 sm:mt-0 sm:ml-3"><button type="submit"
+            class="block w-full px-5 py-3 text-base font-medium text-white bg-gray-900 border border-transparent rounded-md shadow hover:bg-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-500 sm:px-10">Notify
+            me</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{{ end }}
+{{ define "section4" }}
+<div class='container mx-auto pb-6 px-4 lg:max-w-7xl mt-16'>
+  <div class="font-bold uppercase text-sky-600 dark:text-sky-400 text-sm mb-2">KATEGORI</div>
+  <h2 class='text-3xl font-bold tracking-tight mb-2'>Artikel Berdasarkan Kategori</h2>
+  <p class='text-lg mb-8 text-slate-500 dark:text-slate-300'>Baca artikel sesuai dengan minat
+    kamu</p>
+
+  <div class='grid grid-cols-1 md:grid-cols-4 gap-4'>
+    {{ range .Site.Taxonomies.kategori }}
+    {{ $postCount := len .Pages }}
+    <a href="{{ .Page.Permalink}}" class="rounded-md bg-white dark:bg-slate-800 shadow-md p-4">
+      <div class="flex items-center">
+        <div>
+          <p tabindex="0" class="focus:outline-none text-xl leading-snug font-bold text-gray-800 dark:text-white ">
+            {{.Page.Title }}</p>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6 inline">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+          </svg>
+          <span class="text-sm whitespace-nowrap ml-2">{{ $postCount }} Artikel</span>
+
+        </div>
+        <span class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-4" fill="none"
+            viewBox="0 0 24 24" stroke="currentcolor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+          </svg></span>
+
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+</div>
+{{ end }}
